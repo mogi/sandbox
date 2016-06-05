@@ -1,7 +1,6 @@
-from django.conf.urls import url
+#! /usr/bin/env python
+# -*- coding:utf-8 -*-
+from .root import get_urlpatterns as root_urlpatterns
 
-from . import views
-
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-]
+urlpatterns = []
+urlpatterns += root_urlpatterns()

@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="ja" >
+<head>
+  <meta charset="utf-8"/>
+  <title>index</title>
+</head>
+
+<body>
+
+{% if is_succusessed %}
+<p>post is succusessed</p>
+{% endif%}
+
+{% if is_authed %}
+<p>authed</p>
+{% else %}
+<p>not authed</p>
+{% endif%}
+
+<form action="{% url 'index' %}" method="post">
+    {% csrf_token %}
+  <p>
+    post to twitter<br>
+    <textarea name="kanso" rows="4" cols="40"></textarea>
+  </p>
+  <p>
+    <input type="submit" value="submit"><input type="reset" value="reset">
+  </p>
+</form>
+
+</body>
+</html>
