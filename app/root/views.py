@@ -33,7 +33,7 @@ class AuthTwitterView(RedirectView):
             return http.HttpResponseGone()
 
     def get_redirect_url(self, *args, **kwargs):
-        return super(PostTwitterView, self).get_redirect_url(*args, **kwargs)
+        return super(AuthTwitterView, self).get_redirect_url(*args, **kwargs)
 
 
 class PostTwitterView(RedirectView):
