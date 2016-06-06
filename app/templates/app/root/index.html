@@ -8,6 +8,8 @@
 
 <body>
 
+<h1 id="post-to-twitter"><a name="post-to-twitter" href="#post-to-twitter"></a>post to twitter</h1>
+
 {% if is_succusessed %}
 <p>post is succusessed</p>
 {% endif%}
@@ -18,11 +20,14 @@
 <p>not authed</p>
 {% endif%}
 
-<form action="{% url 'index' %}" method="post">
-    {% csrf_token %}
+<h2 id="auth"><a name="auth" href="#auth"></a>auth</h2>
+
+<h2 id="post"><a name="post" href="#post"></a>post</h2>
+
+<form action="{% url 'post' %}" method="post">
+  {% csrf_token %}
   <p>
-    post to twitter<br>
-    <textarea name="kanso" rows="4" cols="40"></textarea>
+    <textarea name="message" rows="4" cols="40"></textarea>
   </p>
   <p>
     <input type="submit" value="submit"><input type="reset" value="reset">
