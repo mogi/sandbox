@@ -1,9 +1,11 @@
 #! /usr/bin/env python
 # -*- coding:utf-8 -*-
 from django import http
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.views.generic import TemplateView, RedirectView
+from app.models.oauth.twitter import auth
 
 
 class IndexView(TemplateView):
@@ -15,25 +17,19 @@ class IndexView(TemplateView):
 
 
 class AuthTwitterView(RedirectView):
-    pattern_name = "index"
     permanent = False
 
     def post(self, request, *args, **kwargs):
-        url = self.get_redirect_url(*args, **kwargs)
-        if url:
-            if self.permanent:
-                return http.HttpResponsePermanentRedirect(url)
-            else:
-                return http.HttpResponseRedirect(url)
-        else:
-            logger.warning(
-                'Gone: %s', request.path,
-                extra={'status_code': 410, 'request': request}
-            )
-            return http.HttpResponseGone()
+        callback_url = request.build_absolute_uri(reverse("callback"))
+        authorize_url = auth(callback_url)
+        return http.HttpResponseRedirect(authorize_url)
+
+class CallbackView(RedirectView):
+    pattern_name = "index"
+    permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
-        return super(AuthTwitterView, self).get_redirect_url(*args, **kwargs)
+        return super(CallbackView, self).get_redirect_url(*args, **kwargs)
 
 
 class PostTwitterView(RedirectView):
