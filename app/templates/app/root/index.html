@@ -25,14 +25,30 @@
       <div class="header clearfix">
         <h1 id="post-to-twitter"><a name="post-to-twitter" href="#post-to-twitter"></a>post to twitter</h1>
       </div>
+      
+      <p>
+      authed: {{ authed }}
+      </p>
 
-      <h2 id="auth"><a name="auth" href="#auth"></a>auth twitter</h2>
-      <form action="/twitter/auth" method="post">
-        {% csrf_token %}
-        <p>
-        <input type="submit" value="auth" class="btn btn-primary">
-        </p>
-      </form>
+      {% if res and content %}
+
+      {% if tweet_succeed %}
+      <p>
+        tweet succeed!
+      </p>
+      {% else %}
+      <p>
+        tweet faild.
+      </p>
+      {% endif %}
+
+      <p>
+      twitter api responce:<br>
+      {{ res }}<br>
+      {{ content }}
+      </p>
+
+      {% endif %}
 
       <h2 id="post"><a name="post" href="#post"></a>post</h2>
 
@@ -42,7 +58,7 @@
         <textarea name="message" rows="4" cols="40"></textarea>
         </p>
         <p>
-        <input type="submit" value="submit" class="btn">
+        <input type="submit" value="tweet" class="btn btn-primary">
         <input type="reset" value="reset" class="btn">
         </p>
       </form>
