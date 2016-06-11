@@ -4,6 +4,8 @@ from .views import IndexView, PostTwitterView, CallbackView
 
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name="index"),
+
+    url(r'^(?P<auth_key>\w+?)/$', IndexView.as_view(), name="index"),
     url(r'^twitter/callback$', CallbackView.as_view(), name="callback"),
     url(r'^twitter/post$', PostTwitterView.as_view(), name="post-twitter"),
 )

@@ -22,7 +22,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "5ly6$hdq)c8np+@3e7z7=%)3a-7#x24u4ipy2**)j00%--bbex"
+SECRET_KEY = os.environ.get('SECRET_KEY', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -42,7 +42,6 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # TODO
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -147,3 +146,8 @@ CACHES = {
         'LOCATION': 'unique-snowflake'
     }
 }
+
+
+# twitter
+CONSUMER_KEY = os.environ.get('CONSUMER_KEY', False)
+CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET', False)

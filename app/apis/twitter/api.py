@@ -63,33 +63,3 @@ def auth(callback_url):
                         token=token, http_url=AUTHORIZATION_URL)
     return oauth_request.to_url()
 
-def tweet_with_auth(message, key, secret, verifier):
-    # setup
-    client = SimpleClient(SERVER, REQUEST_TOKEN_URL, ACCESS_TOKEN_URL)
-    consumer = Consumer(CONSUMER_KEY, CONSUMER_SECRET)
-    # get access token
-    token = Token(key, secret)
-    token.set_verifier(verifier)
-    oauth_request = Request.from_consumer_and_token(
-        consumer, http_method="POST", token=token,
-        http_url=client.request_token_url)
-    oauth_request.sign_request(SignatureMethod_HMAC_SHA1(),
-                               consumer, None)
-    token = client.fetch_access_token(oauth_request)
-    cache.set('app.root.view.post::access_token_key', token.key, 24 * 360)
-    cache.set('app.root.view.post::access_token_secret', token.secret, 24 * 360)
-    return tweet(message, token.key, token.secret)
-
-def tweet(message, key, secret):
-    # post tweet
-    url = "https://api.twitter.com/1.1/statuses/update.json"
-    http_headers = None
-    http_method = "POST"
-    post_body = "status={}".format(message)
-    # setup
-    consumer = Consumer(CONSUMER_KEY, CONSUMER_SECRET)
-    client = Client(consumer, Token(key, secret))
-    res, content = client.request(url, method=http_method, body=post_body, headers=http_headers )
-    cache.set('app.root.view.post::tweet_responce', res, 24 * 360)
-    cache.set('app.root.view.post::tweet_content', content, 24 * 360)
-    return res, content

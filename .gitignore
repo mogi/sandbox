@@ -4,3 +4,4 @@ venv
 staticfiles
 env-django/*
 db.sqlite3
+app/local.py
