@@ -30,7 +30,6 @@ def delete_cache(auth_key):
 
 
 def set_cache(auth_key, key, value):
-    print key.format(auth_key), value
     cache.set(key.format(auth_key), value, 300)
 
 
