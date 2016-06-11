@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+"""
+class to use oauth
+"""
 import httplib
 from django.http import HttpRequest
 from oauth2 import (Client,
@@ -23,8 +26,11 @@ class SimpleClient(Client):
         self.connection = httplib.HTTPSConnection(str(self.server))
 
     def fetch(self, oauth_request, url):
-        # via headers
-        # -> Token
+        """
+        via headers
+        :returns:  Token (by oauth2) instance
+        :rtype: Token
+        """
         self.connection.request(oauth_request.method,
             url, headers=oauth_request.to_header()) 
         response = self.connection.getresponse()
